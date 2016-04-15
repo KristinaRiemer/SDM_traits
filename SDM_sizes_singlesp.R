@@ -37,3 +37,15 @@ levelplot(climate_layers)
 # Get climate values for all occurrences
 vals = extract(climate_layers, shrew_sp, method = "bilinear")
 
+# Occurrences csv for MaxEnt
+shrew_maxent = shrew[, c("clean_genus_species", "decimallongitude", "decimallatitude")]
+write.csv(shrew_maxent, file = "shrew_maxent.csv")
+# Had to go in by hand and remove the first row from the csv
+
+# Environmental asc for MaxEnt
+bio1_layer = raster("bioclim_current/bio1.bil")
+bio4_layer = raster("bioclim_current/bio4.bil")
+writeRaster(bio1_layer, format = "EHdr", file.path("bioclim_current/", "bio1.asc"))
+writeRaster(bio1_layer, filename = "bio1.asc", format = "EHdr", overwrite = TRUE)
+writeRaster(bio4_layer, filename = "bio4.asc", format = "EHdr")
+writeRaster(bio1_layer, filename = "bio1.asc", format = "EHdr")
